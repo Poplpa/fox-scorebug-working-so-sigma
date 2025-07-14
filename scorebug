@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scorebug Overlay</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+  body {
+    margin: 0;
+    background: transparent;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+  }
+
+  .scorebug {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    min-width: 300px;
+  }
+
+  .team {
+    text-align: center;
+  }
+
+  .team-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .score {
+    font-size: 48px;
+    color: cyan;
+    transition: color 0.5s ease;
+  }
+
+  .score.updated {
+    color: yellow;
+  }
+
+  .quarter {
+    font-size: 18px;
+    background: #222;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="scorebug">
+  <div class="team" id="team1">
+    <div class="team-name" id="team1-name">Tigers</div>
+    <div class="score" id="team1-score">0</div>
+  </div>
+  <div class="quarter" id="quarter">Q1</div>
+  <div class="team" id="team2">
+    <div class="team-name" id="team2-name">Eagles</div>
+    <div class="score" id="team2-score">0</div>
+  </div>
+</div>
+
+<script>
+  function updateScore(team, newScore) {
+    const scoreEl = document.getElementById(`${team}-score`);
+    if (scoreEl.textContent != newScore.toString()) {
+      scoreEl.textContent = newScore;
+      scoreEl.classList.add('updated');
+      setTimeout(() => scoreEl.classList.remove('updated'), 1000);
+    }
+  }
+
+  function updateTeamName(team, name) {
+    document.getElementById(`${team}-name`).textContent = name;
+  }
+
+  function updateQuarter(q) {
+    document.getElementById('quarter').textContent = q;
+  }
+
+  // Demo updates
+  setTimeout(() => updateScore('team1', 7), 2000);
+  setTimeout(() => updateScore('team2', 3), 4000);
+  setTimeout(() => updateQuarter('Q2'), 6000);
+  setTimeout(() => updateTeamName('team1', 'Lions'), 8000);
+</script>
+
+</body>
+</html>
